@@ -8,19 +8,20 @@
     <title>Inicio</title>
     <link rel="stylesheet" href="BS/styles.css" />
 </head>
-<form action="inicio.php" method="post">
+<form action="menu_inicio.php" method="post">
 
-    <body class="bg-success d-flex justify-content-center align-items-center vh-100">
+    <body class="d-flex justify-content-center align-items-center vh-100" style="background:#48C9B0;">
         <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 25rem">
+            <div><img src="assets/gg.png" class="rounded mx-auto d-block" alt="username-icon" style="height: 6rem" /></div>
             <div class="text-center fs-1 fw-bold text-dark">Inicio de Sesión</div>
             <div class="input-group mt-4">
-                <div class="input-group-text bg-success bg-gradient">
+                <div class="input-group-text bg-gradient" style="background:#48C9B0;">
                     <img src="assets/usuario.png" alt="username-icon" style="height: 1rem" />
                 </div>
                 <input class="form-control bg-light" type="text" placeholder="Usuario" />
             </div>
             <div class="input-group mt-1">
-                <div class="input-group-text bg-success bg-gradient">
+                <div class="input-group-text bg-gradient" style="background:#48C9B0;">
                     <img src="assets/candado.png" alt="password-icon" style="height: 1rem" />
                 </div>
                 <input class="form-control bg-light" type="password" placeholder="Contraseña" />
@@ -33,7 +34,7 @@
                     sesión</button>
             </div>
             <div class="d-flex gap-1 justify-content-center mt-1">
-                <a href="registro.php" class="text-decoration-none text-success fw-semibold">Registrarte</a>
+                <a href="registro.php" class="text-decoration-none text-success fw-bold">Registrarte</a>
             </div>
 </form>
 </div>
