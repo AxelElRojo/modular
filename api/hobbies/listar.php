@@ -8,4 +8,4 @@ $res = $stmt->get_result();
 $hobbies = [];
 while($row = $res->fetch_assoc())
 	array_push($hobbies, $row);
-echo json_encode(array('exito' => !empty($arr), 'hobbies' => $hobbies));
+echo json_encode(array('exito' => !empty($hobbies), 'hobbies' => $hobbies));
