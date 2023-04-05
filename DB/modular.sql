@@ -4,12 +4,14 @@ CREATE TABLE usuarios(
 	correo VARCHAR(64) NOT NULL,
 	nombre VARCHAR(128) NOT NULL,
 	contrasena VARCHAR(256) NOT NULL,
-	descripcion TEXT NOT NULL
+	descripcion TEXT NOT NULL,
+	eliminado BOOL DEFAULT 0
 );
 
 CREATE TABLE hobbies(
 	id INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
-	nombre VARCHAR(64) NOT NULL
+	nombre VARCHAR(64) NOT NULL,
+	eliminado BOOL DEFAULT 0
 );
 
 CREATE TABLE hobbiesUsuario(
@@ -21,12 +23,14 @@ CREATE TABLE mensajes(
 	id INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	texto TEXT NOT NULL,
 	fechahora DATETIME DEFAULT CURRENT_TIMESTAMP,
-	visto BOOLEAN DEFAULT 0
+	visto BOOLEAN DEFAULT 0,
+	eliminado BOOL DEFAULT 0
 );
 
 CREATE TABLE plataformas(
 	id INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
-	nombre VARCHAR(32) NOT NULL
+	nombre VARCHAR(32) NOT NULL,
+	eliminado BOOL DEFAULT 0
 );
 
 CREATE TABLE plataformasUsuario(
@@ -38,7 +42,8 @@ CREATE TABLE videojuegos(
 	id INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	nombre VARCHAR(64) NOT NULL,
 	crossplay BOOLEAN NOT NULL,
-	activado BOOLEAN DEFAULT 0
+	activado BOOLEAN DEFAULT 0,
+	eliminado BOOL DEFAULT 0
 );
 
 CREATE TABLE videojuegosPlataforma(
