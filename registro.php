@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="BS/styles.css" />
 </head>
 
-<body class="d-flex justify-content-center align-items-center vh-100" style="background:#48C9B0;">
+<body class="d-flex justify-content-center align-items-center vh-100" style="background:#9D9D9D;">
     <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 45rem">
         <form class="row g-3 needs-validation" action="index.php" method="post" novalidate>
         <div class="text-center fs-1 fw-bold text-dark">Formulario de Registro</div>
