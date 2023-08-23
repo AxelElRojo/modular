@@ -5,6 +5,7 @@ CREATE TABLE usuarios(
 	nombre VARCHAR(128) NOT NULL,
 	contrasena VARCHAR(256) NOT NULL,
 	descripcion TEXT NOT NULL,
+	discord VARCHAR(32) NOT NULL,
 	eliminado BOOL DEFAULT 0
 );
 
