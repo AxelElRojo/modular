@@ -61,12 +61,3 @@ CREATE TABLE sugerenciasVideojuego(
 	idVideojuego INT(11) NOT NULL REFERENCES videojuegos(id),
 	idUsuario INT(11) NOT NULL REFERENCES usuarios(id)
 );
-CREATE TRIGGER revisarActivacion AFTER INSERT ON sugerenciasVideojuego FOR EACH ROW
-BEGIN
-	SELECT COUNT(*) INTO @cntUsuarios FROM usuarios;
-	SELECT COUNT(*) INTO @cntSugerencias FROM sugerenciasVideojuego WHERE sugerenciasVideojuego.idVideojuego = NEW.idVideojuego;
-	IF @cntSugerencias >= @cntUsuarios*.05 THEN
-		UPDATE videojuegos SET activado = 1 WHERE id = NEW.idVideojuego LIMIT 1;
-		DELETE FROM sugerenciasVideojuego WHERE idVideojuego = NEW.idVideojuego;
-	END IF;
-END;
