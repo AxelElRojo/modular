@@ -18,5 +18,7 @@ if(sesion_existe()){
 	}else
 		readfile('views/inicio.html');
 }
-else
+elseif(!isset($_GET['registro']))
 	readfile('views/login.html');
+else
+	readfile('views/registro.html');
