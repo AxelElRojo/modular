@@ -1,5 +1,5 @@
 var usuarios = {};
-usuarios.login = (usuario, contrasena) => {
+usuarios.login = (usuario, contrasena, nuevo = false) => {
 	if(!usuario || !contrasena)
 		alert("Faltan datos por llenar");
 	else
@@ -8,7 +8,8 @@ usuarios.login = (usuario, contrasena) => {
 			url: "/api/usuarios/login.php",
 			data: {
 				usuario: usuario,
-				contrasena: contrasena
+				contrasena: contrasena,
+				nuevo: Number(nuevo)
 			},
 			success: (response) => {
 				if(!response.exito)
@@ -35,7 +36,7 @@ usuarios.alta = (usuario, correo, nombre, contrasena, descripcion, discord) => {
 			success: (response) => {
 				if(response.exito){
 					alert("Usuario creado correctamente");
-					login(usuario, contrasena);
+					usuarios.login(usuario, contrasena, true);
 				}else
 					alert("No se pudo crear el usuario");
 			}
@@ -69,7 +70,7 @@ usuarios.modificar = (id, usuario, correo, nombre, contrasena, descripcion, disc
 usuarios.detalles = (idUsuario, callback) => {
 	$.ajax({
 		method: "POST",
-		url: "/api/usuarios/alta.php",
+		url: "/api/usuarios/detalles.php",
 		data: {
 			id: idUsuario
 		},

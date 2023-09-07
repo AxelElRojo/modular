@@ -10,6 +10,8 @@ if(password_verify($_POST['contrasena'], $contrasena)){
 	session_start();
 	setcookie('sessid', session_id(), strtotime('+1 day'));
 	$_SESSION['id'] = $id;
+	if($_POST['nuevo'])
+		$_SESSION['noterminado'] = 'hobbies';
 	echo json_encode(array('exito' => session_write_close(), 'mensaje' => "Error creando sesión"));
 }else
 	echo json_encode(array('exito' => false, 'mensaje' => "Datos incorrectos"));
