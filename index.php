@@ -11,8 +11,16 @@ if(sesion_existe()){
 			default:
 				readfile('views/inicio.html');
 		}
-	else
+	elseif(!isset($_REQUEST['tipo']))
 		readfile('views/inicio.html');
+	else
+		switch($_REQUEST['tipo']){
+			case 'recomendar':
+				readfile("views/recomendaciones.html");
+			break;
+			default:
+				readfile('views/inicio.html');
+		}
 }elseif(!isset($_GET['registro']))
 	readfile('views/login.html');
 else

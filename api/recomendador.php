@@ -1,12 +1,13 @@
 <?php
-
 require_once('.includes/db_conn.inc.php');
 require_once('.includes/session.inc.php');
-//sesion_bloqueo();
-
+sesion_bloqueo();
 $idJuego = $conn->real_escape_string($_GET['idJuego']);
-$idUsuario = $conn->real_escape_string($_GET['idUsuario']);
-
+if(isset($_GET['idUsuario']))
+	$idUsuario = $conn->real_escape_string($_GET['idUsuario']);
+else
+	$idUsuario = $_SESSION['id'];
+$n = $_GET['n'];
 header("Content-Type: application/json");
 function hobbiesToArray(int $id) : array {
 	global $conn;
@@ -25,9 +26,6 @@ $hobbiesUsuario = hobbiesToArray($idUsuario);
 $distancia = [];
 $porcentajes = [];
 $distMin = 1e5;
-
-//! TODO: Que sólo seleccione usuarios con plataformas en común
-
 $stmt = $conn->prepare("SELECT idUsuario AS id FROM videojuegosUsuario WHERE idUsuario!=? AND idVideojuego=?");
 $stmt->bind_param('ii', $idUsuario, $idJuego);
 $stmt->execute();
@@ -36,16 +34,15 @@ while($row = $res->fetch_assoc()){
 	$hobbiesOtro = hobbiesToArray($row['id']);
 	$hobbiesTotales = array_unique(array_merge($hobbiesUsuario, $hobbiesOtro));
 	$distancia[$row['id']] = 0;
-	foreach($hobbiesTotales as $value){
+	foreach($hobbiesTotales as $value)
 		$distancia[$row['id']] += abs(in_array($value, $hobbiesUsuario) - in_array($value, $hobbiesOtro));
-	}
 	if($distancia[$row['id']] < $distMin)
 		$distMin = $distancia[$row['id']];
 }
 $res->close();
 $stmt->close();
 asort($distancia, SORT_NUMERIC);
-$distancia = array_slice($distancia, 0, 5, true);
+$distancia = array_slice($distancia, 0, $n, true);
 foreach($distancia as $id => $dist)
 	$porcentajes[$id] = number_format($distMin*100/$dist, 2);
 $ids = array_keys($distancia);

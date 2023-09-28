@@ -12,6 +12,6 @@ function sesion_existe() : bool {
 function sesion_bloqueo() : void {
 	if(sesion_existe())
 		return;
-	header("Location: /index.php");
+	header("Location: /");
 	die();
 }

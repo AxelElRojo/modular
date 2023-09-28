@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Conocer personas</title>
+	<link rel="stylesheet" href="/BS/styles.css"/>
+	<link rel="stylesheet" href="/BS/copiar.css"/>
+	<script src="/JS/usuarios.js"></script>
+	<script src="/JS/videojuegos.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body class="d-flex justify-content-center align-items-center" style="background:#9D9D9D;">
+	<form method="post" onsubmit="event.preventDefault();" id="main">
+		<div class="row my-5 bg-white p-1 rounded-5 text-secondary shadow text-center" style="width: 50rem" id="cosas">
+			<div class="col-md-12 gap-3 d-grid my-5" id="controles">
+				<select id="selectorJuegos" class="form-control">
+					<option value="" selected disabled>Selecciona un videojuego</option>
+				</select>
+				<input id="cantidad" class="form-control" type="number" placeholder="¿Cuántas personas quieres mostrar?"/>
+				<button class="btn btn-primary w-50 mx-auto" onclick="cargarRecomendaciones($('#selectorJuegos').val(),$('#cantidad').val())">Ver personas</button>
+				<a href="/" class="w-100">
+					<button class="btn btn-outline-secondary fw-bolder shadow-sm w-50 mx-auto">
+						Regresar
+					</button>
+				</a>
+			</div>
+		</div>
+	</form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+	integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous">
+</script>
+<script>
+	var compatibilidad;
+	function cargarRecomendaciones(idJuego, n){
+		if(!idJuego || !n)
+			alert("Favor de llenar todos los datos");
+		else
+			$.ajax({
+				method: 'GET',
+				url: '/api/recomendador.php',
+				data: {
+					'idJuego': idJuego,
+					'n': n
+				},
+				success: (response) => {
+					if(response.ids.length == 0)
+						alert('¡No hay nadie compatible!');
+					else{
+						$('.persona').remove();
+						compatibilidad = response.compatibilidad;
+						response.ids.forEach(id => {
+							usuarios.detalles(id, mostrarRecomendado);
+						});
+						$('#controles').hide();
+					}
+				},
+				error: (err1, err2, err3) => {
+					alert('¡Hubo un error en la comunicación!');
+					console.error(err1, err2, err3);
+				}
+			});
+	}
+	function mostrarRecomendado(response){
+		var row = $('<div></div>').addClass('row my-5 bg-white p-1 rounded-5 shadow text-center persona');
+		var discord = $('<div></div>').addClass('text-black row mx-auto text-center');
+		discord.append('<strong></strong>').addClass('col-md-3 copyTarget').text(response.usuario.discord);
+		discord.append($('<i></i>').addClass("col-md-3 fa-solid fa-clipboard copyButton input-group-addon btn").attr('title', 'Click para copiar'));
+		row.append(discord);
+		row.append($('<p></p>').addClass('col-md-6 text-secondary').text(`${compatibilidad[response.usuario.id]}% compatibles`));
+		row.append($('<p></p>').addClass('col-md-12').text(response.usuario.descripcion));
+		$('#main').append(row);
+	}
+	videojuegos.listar((response) => {
+		response.videojuegos.forEach( (videojuego) => {
+			var opt = $('<option></option>').val(videojuego.id).text(videojuego.nombre);
+			$('#selectorJuegos').append(opt);
+		});
+	});
+	function copyToClipboard(input){
+		var target = elem, currentFocus = document.activeElement;
+		target.focus();
+		target.setSelectionRange(0, target.value.length);
+		var succeed = true;
+		try{
+			navigator.clipboard.writeText(input.text);
+		}catch(e){
+			console.warn(e);
+			succeed = false;
+		}
+		if(succeed){
+			$(".copied").animate({ top: -25, opacity: 0 }, 700, () => {
+				$(this).css({ top: 0, opacity: 1 });
+			});
+		}
+	}
+	$(".copyButton").on("click", (event) => {
+		alert('Hola');
+		console.log(event);
+		copyToClipboard(event.target);
+	});
+</script>
+</body>
+</html>

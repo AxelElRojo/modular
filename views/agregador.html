@@ -9,7 +9,7 @@
 	<script src="/JS/ENTIDAD.js"></script>
 </head>
 <body class="d-flex justify-content-center align-items-center" style="background:#9D9D9D;">
-	<form method="post" onsubmit="event.preventDefault(); ENTIDAD.registrar()">
+	<form method="post" onsubmit="event.preventDefault(); enviarDatos()">
 		<div class="row my-5 bg-white p-5 rounded-5 text-secondary shadow text-center" style="width: 25rem" id="cosas">
 			<div class="col-md-12">
 				<label class="form-label fs-4 fw-bold">Agrega tus ENTIDAD</label>
@@ -25,16 +25,24 @@
 <script>
 	function callback(response){
 		response.ENTIDAD.forEach(element => {
-			var fila = $('<div></div>').addClass('col-md-3');
+			var fila = $('<div></div>').addClass('col-md-3 rojorow text-end');
 			fila.append($('<input/>').addClass('form-check-input').attr('type', 'checkbox').attr('name', element.id).attr('id', element.id));
 			$('#cosas').append(fila);
-			fila = $('<div></div>').addClass('col-md-9');
+			fila = $('<div></div>').addClass('col-md-9 text-start');
 			fila.append($('<label></label>').addClass('form-check-label').text(element.nombre).attr('for', element.id));
 			$('#cosas').append(fila);
 		});
 		$('#cosas').append($('<button></button>').addClass('btn btn-primary mt-4').attr('submit', 'true').text('Registrar hobbies'));
 	}
 	ENTIDAD.listar(callback);
+	function enviarDatos(){
+		var datos = [];
+		$('.rojorow > input').each((i, element) => {
+			if(element.checked)
+				datos.push(element.id);
+		});
+		ENTIDAD.registrar(datos);
+	}
 </script>
 </body>
 </html>
