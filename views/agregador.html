@@ -4,8 +4,9 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Inicio</title>
+	<title>Agregar ENTIDAD</title>
 	<link rel="stylesheet" href="/BS/styles.css"/>
+	<script src="/JS/get.js"></script>
 	<script src="/JS/ENTIDAD.js"></script>
 </head>
 <body class="d-flex justify-content-center align-items-center" style="background:#9D9D9D;">
@@ -33,15 +34,19 @@
 			$('#cosas').append(fila);
 		});
 		$('#cosas').append($('<button></button>').addClass('btn btn-primary mt-4').attr('submit', 'true').text('Registrar hobbies'));
+		CARGADOR;
 	}
 	ENTIDAD.listar(callback);
 	function enviarDatos(){
-		var datos = [];
+		var seleccionados = [], noseleccionados = [];
 		$('.rojorow > input').each((i, element) => {
 			if(element.checked)
-				datos.push(element.id);
+				seleccionados.push(element.id);
+			else
+				noseleccionados.push(element.id);
 		});
-		ENTIDAD.registrar(datos);
+		ENTIDAD.registrar(seleccionados);
+		ENTIDAD.deregistrar(noseleccionados);
 	}
 </script>
 </body>

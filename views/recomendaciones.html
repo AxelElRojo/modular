@@ -13,20 +13,29 @@
 </head>
 <body class="d-flex justify-content-center align-items-center" style="background:#9D9D9D;">
 	<form method="post" onsubmit="event.preventDefault();" id="main">
-		<div class="row my-5 bg-white p-1 rounded-5 text-secondary shadow text-center" style="width: 50rem" id="cosas">
-			<div class="col-md-12 gap-3 d-grid my-5" id="controles">
-				<select id="selectorJuegos" class="form-control">
-					<option value="" selected disabled>Selecciona un videojuego</option>
-				</select>
-				<input id="cantidad" class="form-control" type="number" placeholder="¿Cuántas personas quieres mostrar?"/>
-				<button class="btn btn-primary w-50 mx-auto" onclick="cargarRecomendaciones($('#selectorJuegos').val(),$('#cantidad').val())">Ver personas</button>
-				<a href="/" class="w-100">
-					<button class="btn btn-outline-secondary fw-bolder shadow-sm w-50 mx-auto">
-						Regresar
-					</button>
-				</a>
+		<div class="container-fluid">
+			<div class="row my-5 bg-white p-1 rounded-5 text-secondary shadow text-center" style="width: 50rem" id="cosas">
+				<div class="row gap-3 my-5 mx-auto" id="controles">
+					<select id="selectorJuegos" class="col-md-12 form-control">
+						<option value="" selected disabled>Selecciona un videojuego</option>
+					</select>
+					<input id="cantidad" class="col-md-12 form-control" type="number" placeholder="¿Cuántas personas quieres mostrar?"/>
+					<div class="col-md-6">
+						<button class="btn btn-primary" onclick="cargarRecomendaciones($('#selectorJuegos').val(),$('#cantidad').val())">
+							Ver personas
+						</button>
+					</div>
+					<div class="col-md-6">
+						<a href="/" class="fw-bolder">
+							<button class="btn btn-outline-secondary shadow-sm">
+								Regresar
+							</button>
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
+		
 	</form>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
 	integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
@@ -56,7 +65,7 @@
 						response.ids.forEach(id => {
 							usuarios.detalles(id, mostrarRecomendado);
 						});
-						$('#controles').hide();
+						//$('#controles').hide();
 					}
 				},
 				error: (err1, err2, err3) => {
@@ -87,7 +96,7 @@
 		target.setSelectionRange(0, target.value.length);
 		var succeed = true;
 		try{
-			navigator.clipboard.writeText(input.text);
+			navigator.clipboard.writeText(input.value);
 		}catch(e){
 			console.warn(e);
 			succeed = false;

@@ -18,7 +18,37 @@ videojuegos.registrar = (datos) => {
 				alert('Registro de videojuegos exitoso');
 			else
 				alert('No se pudo realizar el registro');
-			location.reload();
+			if(getUrlParameter('cambio') == 1)
+				window.location.replace("/");
+			else
+				location.reload();
+		}
+	});
+}
+videojuegos.deregistrar = (datos) => {
+	$.ajax({
+		method: "POST",
+		url: "/api/videojuegos/deregistrar.php",
+		data: {
+			ids: JSON.stringify(datos)
+		},
+		success: (response) => {
+			if(getUrlParameter('cambio') == 1)
+				window.location.replace("/");
+		}
+	});
+}
+videojuegos.cargar = () => {
+	$.ajax({
+		method: "POST",
+		url: "/api/videojuegos/usuario.php",
+		success: (response) => {
+			if(response.exito){
+				response.videojuegos.forEach(videojuego => {
+					$(`#${videojuego}`).prop('checked', true);
+				});
+			}else
+				alert('No se pudo obtener la lista');
 		}
 	});
 }

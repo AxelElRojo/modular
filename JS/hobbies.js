@@ -18,7 +18,37 @@ hobbies.registrar = (datos) => {
 				alert('Registro de hobbies exitoso');
 			else
 				alert('No se pudo realizar el registro');
-			location.reload();
+			if(getUrlParameter('cambio') == 1)
+				window.location.replace("/");
+			else
+				location.reload();
+		}
+	});
+}
+hobbies.deregistrar = (datos) => {
+	$.ajax({
+		method: "POST",
+		url: "/api/hobbies/deregistrar.php",
+		data: {
+			ids: JSON.stringify(datos)
+		},
+		success: (response) => {
+			if(getUrlParameter('cambio') == 1)
+				window.location.replace("/");
+		}
+	});
+}
+hobbies.cargar = () => {
+	$.ajax({
+		method: "POST",
+		url: "/api/hobbies/usuario.php",
+		success: (response) => {
+			if(response.exito){
+				response.hobbies.forEach(hobby => {
+					$(`#${hobby}`).prop('checked', true);
+				});
+			}else
+				alert('No se pudo obtener la lista');
 		}
 	});
 }

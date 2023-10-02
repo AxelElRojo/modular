@@ -6,7 +6,7 @@ if(sesion_existe()){
 			case 'hobbies':
 			case 'plataformas':
 			case 'videojuegos':
-				readfile("agregador.php?tipo={$_SESSION['noterminado']}");
+				readfile("agregador.php?tipo={$_SESSION['noterminado']}&cambio=0");
 			break;
 			default:
 				readfile('views/inicio.html');
@@ -17,6 +17,17 @@ if(sesion_existe()){
 		switch($_REQUEST['tipo']){
 			case 'recomendar':
 				readfile("views/recomendaciones.html");
+			break;
+			case 'agregar':
+				switch($_REQUEST['entidad']){
+					case 'hobbies':
+					case 'plataformas':
+					case 'videojuegos':
+						header("Location: agregador.php?tipo={$_REQUEST['entidad']}&cambio=1");
+					break;
+					default:
+						readfile('views/inicio.html');
+				}
 			break;
 			default:
 				readfile('views/inicio.html');
