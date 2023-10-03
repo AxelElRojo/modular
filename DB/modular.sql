@@ -6,7 +6,8 @@ CREATE TABLE usuarios(
 	contrasena VARCHAR(256) NOT NULL,
 	descripcion TEXT NOT NULL,
 	discord VARCHAR(32) NOT NULL,
-	eliminado BOOL DEFAULT 0
+	eliminado BOOL DEFAULT 0,
+	UNIQUE KEY idx_usuario(usuario)
 );
 
 CREATE TABLE hobbies(

@@ -43,12 +43,12 @@ usuarios.alta = (usuario, correo, nombre, contrasena, descripcion, discord) => {
 		});
 }
 usuarios.modificar = (id, usuario, correo, nombre, contrasena, descripcion, discord) => {
-	if(!id || !usuario || !correo || !nombre || !contrasena || !descripcion || !discord)
+	if(!usuario || !correo || !nombre || !descripcion || !discord)
 		alert("Faltan datos por llenar");
 	else
 		$.ajax({
 			method: "POST",
-			url: "/api/usuarios/alta.php",
+			url: "/api/usuarios/modificacion.php",
 			data: {
 				id: id,
 				usuario: usuario,
@@ -59,11 +59,12 @@ usuarios.modificar = (id, usuario, correo, nombre, contrasena, descripcion, disc
 				discord: discord
 			},
 			success: (response) => {
+				console.log(response);
 				if(response.exito){
-					alert("Usuario creado correctamente");
-					login(usuario, contrasena);
+					alert("Modificación correcta");
+					window.location.replace("/");
 				}else
-					alert("No se pudo crear el usuario");
+					alert("No se pudo modificar");
 			}
 		});
 }
@@ -76,4 +77,21 @@ usuarios.detalles = (idUsuario, callback) => {
 		},
 		success: callback
 	});
+}
+usuarios.repetido = (nombre) => {
+	if(nombre)
+		$.ajax({
+			method: "POST",
+			url: "/api/usuarios/repetido.php",
+			data: {
+				usuario: nombre,
+			},
+			success: (response) => {
+				if(response.repetido){
+					alert("El nombre de usuario está repetido");
+					$('#btnsbt').prop('disabled', true);
+				}else
+					$('#btnsbt').prop('disabled', false);
+			}
+		});
 }

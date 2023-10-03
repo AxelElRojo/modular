@@ -5,13 +5,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Registro</title>
-	<link rel="stylesheet" href="BS/styles.css"/>
-	<script src="JS/usuarios.js"></script>
+	<link rel="stylesheet" href="/BS/styles.css"/>
+	<script src="/JS/usuarios.js"></script>
 </head>
 <body class="d-flex justify-content-center align-items-center vh-100" style="background:#9D9D9D;">
 	<div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 45rem">
-		<form class="row g-3 needs-validation" method="post" onsubmit="event.preventDefault(); usuarios.alta($('#usuario').val(), $('#correo').val(), $('#nombre').val(), $('#passwd').val(), $('#descripcion').val(), $('#discord').val());">
-		<div class="text-center fs-1 fw-bold text-dark">Formulario de Registro</div>
+		<form class="row g-3 needs-validation" method="post" onsubmit="event.preventDefault();">
+		<div class="text-center fs-1 fw-bold text-dark">Actualizar perfil</div>
 			<div class="col-md-6">
 				<label for="nombre" class="form-label fw-semibold">Nombre</label>
 				<input type="text" class="form-control" id="nombre" placeholder="Nombre completo">
@@ -40,9 +40,9 @@
 				<label for="passwd" class="form-label fw-semibold">Contraseña</label>
 				<div class="input-group has-validation">
 					<input type="text" class="form-control" id="passwd"
-						aria-describedby="inputGroupPrepend" placeholder="Contraseña">
+						aria-describedby="inputGroupPrepend" placeholder="(Opcional)">
 					<div class="invalid-feedback">
-						Introduce una contraseña
+						Deja en blanco si no la quieres cambiar
 					</div>
 				</div>
 			</div>
@@ -60,22 +60,11 @@
 					Llenado Correctamente
 				</div>
 			</div>
-			<div class="col-12">
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-					<label class="form-check-label" for="invalidCheck">
-						Acepto los términos y condiciones
-					</label>
-					<div class="invalid-feedback">
-						Debes de aceptar para continuar
-					</div>
-				</div>
+			<div class="col-6">
+				<a class="btn btn-outline-dark  w-100 mt-4 fw-semibold shadow-sm" type="submit" href="/">Regresar</a>
 			</div>
 			<div class="col-6">
-				<button  id="btnsbt" class="btn btn-outline-dark  w-100 mt-4 fw-semibold shadow-sm" type="submit">Siguiente página</button>
-			</div>
-			<div class="col-6">
-				<a class="btn btn-outline-danger  w-100 mt-4 fw-semibold shadow-sm" href="index.php" role="button">Iniciar sesión</a>
+				<button id="btnsbt" class="btn btn-outline-primary  w-100 mt-4 fw-semibold shadow-sm" role="button" onclick="event.preventDefault(); actualizarDatos();">Guardar</button>
 			</div>
 		</form>
 	</div>
@@ -84,6 +73,21 @@
 </script>
 <script src="https://code.jquery.com/jquery-3.7.1.js"
 	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous">
+</script>
+<script>
+	function callback(response){
+		$('#usuario').val(response.usuario.usuario);
+		$('#correo').val(response.usuario.correo);
+		$('#nombre').val(response.usuario.nombre);
+		$('#discord').val(response.usuario.discord);
+		$('#descripcion').val(response.usuario.descripcion);
+	}
+	usuarios.detalles(0, callback);
+	function actualizarDatos(){
+		usuarios.modificar(null, $('#usuario').val(), $('#correo').val(), $('#nombre').val(),
+			$('#passwd').val(), $('#descripcion').val(), $('#discord').val()
+		);
+	}
 </script>
 </body>
 </html>

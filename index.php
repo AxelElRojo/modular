@@ -16,7 +16,11 @@ if(sesion_existe()){
 	else
 		switch($_REQUEST['tipo']){
 			case 'recomendar':
-				readfile("views/recomendaciones.html");
+				$file = file_get_contents("views/recomendaciones.html");
+				echo str_replace('CARGAR', 'usuario.detalles(null, callback)', $file);
+			break;
+			case 'actualizar':
+				readfile("views/actualizar.html");
 			break;
 			case 'agregar':
 				switch($_REQUEST['entidad']){
@@ -35,4 +39,4 @@ if(sesion_existe()){
 }elseif(!isset($_GET['registro']))
 	readfile('views/login.html');
 else
-	readfile('views/registro.html');
+	readfile("views/registro.html");

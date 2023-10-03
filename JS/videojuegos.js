@@ -6,6 +6,13 @@ videojuegos.listar = (callback) => {
 		success: callback
 	});
 }
+videojuegos.usuario = (callback) => {
+	$.ajax({
+		method: "POST",
+		url: "/api/videojuegos/usuario.php",
+		success: callback
+	});
+}
 videojuegos.registrar = (datos) => {
 	$.ajax({
 		method: "POST",

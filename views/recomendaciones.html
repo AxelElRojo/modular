@@ -26,10 +26,8 @@
 						</button>
 					</div>
 					<div class="col-md-6">
-						<a href="/" class="fw-bolder">
-							<button class="btn btn-outline-secondary shadow-sm">
-								Regresar
-							</button>
+						<a href="/" class="fw-bolder btn btn-outline-secondary shadow-sm">
+							Regresar
 						</a>
 					</div>
 				</div>
@@ -84,7 +82,7 @@
 		row.append($('<p></p>').addClass('col-md-12').text(response.usuario.descripcion));
 		$('#main').append(row);
 	}
-	videojuegos.listar((response) => {
+	videojuegos.usuario((response) => {
 		response.videojuegos.forEach( (videojuego) => {
 			var opt = $('<option></option>').val(videojuego.id).text(videojuego.nombre);
 			$('#selectorJuegos').append(opt);
