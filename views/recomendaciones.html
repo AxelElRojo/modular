@@ -16,16 +16,16 @@
 		<div class="container-fluid">
 			<div class="row my-5 bg-white p-1 rounded-5 text-secondary shadow text-center" style="width: 50rem" id="cosas">
 				<div class="row gap-3 my-5 mx-auto" id="controles">
-					<select id="selectorJuegos" class="col-md-12 form-control">
+					<select id="selectorJuegos" class="text-center col-md-12 form-control">
 						<option value="" selected disabled>Selecciona un videojuego</option>
 					</select>
-					<input id="cantidad" class="col-md-12 form-control" type="number" placeholder="¿Cuántas personas quieres mostrar?"/>
-					<div class="col-md-6">
+					<input id="cantidad" class="text-center col-md-12 form-control" type="number" placeholder="¿Cuántas personas quieres mostrar?"/>
+					<div class="mx-auto col-md-6">
 						<button class="btn btn-primary" onclick="cargarRecomendaciones($('#selectorJuegos').val(),$('#cantidad').val())">
 							Ver personas
 						</button>
 					</div>
-					<div class="col-md-6">
+					<div class="mx-auto col-md-6">
 						<a href="/" class="fw-bolder btn btn-outline-secondary shadow-sm">
 							Regresar
 						</a>
@@ -33,8 +33,8 @@
 				</div>
 			</div>
 		</div>
-		
 	</form>
+	<input hidden id="nombre"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
 	integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
 </script>
@@ -76,7 +76,9 @@
 		var row = $('<div></div>').addClass('row my-5 bg-white p-1 rounded-5 shadow text-center persona');
 		var discord = $('<div></div>').addClass('text-black row mx-auto text-center');
 		discord.append('<strong></strong>').addClass('col-md-3 copyTarget').text(response.usuario.discord);
-		discord.append($('<i></i>').addClass("col-md-3 fa-solid fa-clipboard copyButton input-group-addon btn").attr('title', 'Click para copiar'));
+		discord.append($('<i></i>').addClass("col-md-3 fa-solid fa-clipboard copyButton input-group-addon btn").attr('title', 'Clck para copiar').on('click', (event) => {
+			navigator.clipboard.writeText($(event.target).closest('.copyTarget').text());
+		}));
 		row.append(discord);
 		row.append($('<p></p>').addClass('col-md-6 text-secondary').text(`${compatibilidad[response.usuario.id]}% compatibles`));
 		row.append($('<p></p>').addClass('col-md-12').text(response.usuario.descripcion));

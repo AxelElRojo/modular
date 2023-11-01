@@ -50,9 +50,10 @@ videojuegos.cargar = () => {
 		method: "POST",
 		url: "/api/videojuegos/usuario.php",
 		success: (response) => {
+			console.log(response);
 			if(response.exito){
 				response.videojuegos.forEach(videojuego => {
-					$(`#${videojuego}`).prop('checked', true);
+					$(`#${videojuego.id}`).prop('checked', true);
 				});
 			}else
 				alert('No se pudo obtener la lista');
