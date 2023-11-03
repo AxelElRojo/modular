@@ -61,7 +61,8 @@
 						$('.persona').remove();
 						compatibilidad = response.compatibilidad;
 						response.ids.forEach(id => {
-							usuarios.detalles(id, mostrarRecomendado);
+							if(response.usuario != id && id > 0)
+								usuarios.detalles(id, mostrarRecomendado);
 						});
 						//$('#controles').hide();
 					}
