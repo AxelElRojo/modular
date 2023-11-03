@@ -10,4 +10,4 @@ $res = $stmt->get_result();
 $plataformas = [];
 while($row = $res->fetch_assoc())
 	array_push($plataformas, $row['idPlataforma']);
-echo json_encode(array('exito' => !empty($plataformas), 'plataformas' => $plataformas));
+echo json_encode(array('exito' => $stmt->error == "", 'plataformas' => $plataformas));

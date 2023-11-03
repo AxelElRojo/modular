@@ -21,7 +21,7 @@ hobbies.registrar = (datos) => {
 			if(getUrlParameter('cambio') == 1)
 				window.location.replace("/");
 			else
-				location.reload();
+				location.replace(`${window.location.href.split('?')[0]}?noterminado=plataformas&cambio=0`);
 		}
 	});
 }

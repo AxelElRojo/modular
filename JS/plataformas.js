@@ -35,6 +35,8 @@ plataformas.deregistrar = (datos) => {
 		success: (response) => {
 			if(getUrlParameter('cambio') == 1)
 				window.location.replace("/");
+			else
+				location.replace(`${window.location.href.split('?')[0]}?noterminado=videojuegos&cambio=0`);
 		}
 	});
 }

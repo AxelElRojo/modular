@@ -6,7 +6,7 @@ if(sesion_existe()){
 			case 'hobbies':
 			case 'plataformas':
 			case 'videojuegos':
-				readfile("agregador.php?tipo={$_SESSION['noterminado']}&cambio=0");
+				header("Location: agregador.php?tipo={$_SESSION['noterminado']}&cambio=1");
 			break;
 			default:
 				readfile('views/inicio.html');

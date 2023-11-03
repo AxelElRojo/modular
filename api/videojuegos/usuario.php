@@ -10,4 +10,4 @@ $res = $stmt->get_result();
 $videojuegos = [];
 while($row = $res->fetch_assoc())
 	array_push($videojuegos, $row);
-echo json_encode(array('exito' => !empty($videojuegos), 'videojuegos' => $videojuegos));
+echo json_encode(array('exito' => $stmt->error == "", 'videojuegos' => $videojuegos));

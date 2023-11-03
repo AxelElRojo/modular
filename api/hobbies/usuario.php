@@ -10,4 +10,4 @@ $res = $stmt->get_result();
 $hobbies = [];
 while($row = $res->fetch_assoc())
 	array_push($hobbies, $row['idHobbie']);
-echo json_encode(array('exito' => !empty($hobbies), 'hobbies' => $hobbies));
+echo json_encode(array('exito' => $stmt->error == "", 'hobbies' => $hobbies));
