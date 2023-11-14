@@ -11,4 +11,5 @@ foreach ($ids as $idVideojuego){
 	$exito = $exito && $stmt->execute();
 }
 unset($_SESSION['noterminado']);
+session_write_close();
 echo json_encode(array('exito' => $exito));

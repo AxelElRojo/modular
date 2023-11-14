@@ -10,5 +10,6 @@ foreach ($ids as $idPlataforma){
 	$stmt->bind_param('ii', $_SESSION['id'], $idPlataforma);
 	$exito = $exito && $stmt->execute();
 }
-$_SESSION['noterminado'] = 'videojuegos';
+if(isset($_SESSION['noterminado']))
+	$_SESSION['noterminado'] = 'videojuegos';
 echo json_encode(array('exito' => $exito));
